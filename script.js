@@ -51,8 +51,10 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       const happinessChange = 3;
       const weightChange = 5;
       // Check if happiness and weight would be too low
-      if(pet_info[happiness] - happinessChange < 0 && pet_info[weight] - weightChange <= 0)
+      if(pet_info[happiness] - happinessChange < 0 && pet_info[weight] - weightChange <= 0){
         $('.warning').text("Cannot exercise, happiness and weight would be too low!");
+        checkAndUpdatePetInfoInHtml();
+      }
       else {
         // If happiness is too low, show warning
         if(pet_info[happiness] - happinessChange < 0)
@@ -71,6 +73,13 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     }
 
     function clickedTrainButton() {
+      const happinessChange = 5;
+      if(pet_info[happiness] - happinessChange < 0){
+        $('.warning').text("Cannot train, happiness is too low!");
+        checkAndUpdatePetInfoInHtml();
+      }
+      pet_info[happiness] -= happinessChange;
+      pet_info[weight] += 2;
       checkAndUpdatePetInfoInHtml();
     }
   
