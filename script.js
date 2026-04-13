@@ -27,23 +27,25 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   
     function clickedTreatButton() {
       // Increase pet happiness
-      pet_info['happiness'] = parseInt(pet_info['happiness']) + 5;
+      var newHappiness = Number(pet_info['happiness']), newWeight = Number(pet_info['weight'])
+      pet_info['happiness'] = newHappiness + 5;
       // Increase pet weight
 
-      pet_info['weight'] = parseInt(pet_info['weight']) + 5;
+      pet_info['weight'] = newWeight + 5;
       checkAndUpdatePetInfoInHtml();
     }
     
     function clickedPlayButton() {
       // Const to make changing values across function easier
+      var newHappiness = Number(pet_info['happiness'])
       const weightChange = 2;
       // Check if weight is too low
       if(pet_info['weight'] - weightChange <= 0)
         $('.warning').text("Cannot play, weight is too low!");
       // Increase pet happiness
-      pet_info['happiness'] = parseInt(pet_info['happiness']) + 3;
+      pet_info['happiness'] = newHappiness + 3;
       // Decrease pet weight
-      pet_info['weight'] = parseInt(pet_info['weight']) - weightChange;
+      pet_info['weight'] -= weightChange;
       checkAndUpdatePetInfoInHtml();
     }
     
@@ -68,19 +70,20 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
           checkAndUpdatePetInfoInHtml();
       }
       // IF happiness and weight are safe, decrease both and update info
-      pet_info['happiness'] = parseInt(pet_info['happiness']) - happinessChange;
-      pet_info['weight'] = parseInt(pet_info['weight']) - weightChange;
+      pet_info['happiness'] -= happinessChange;
+      pet_info['weight'] -= weightChange;
       checkAndUpdatePetInfoInHtml();
     }
 
     function clickedTrainButton() {
       const happinessChange = 5;
+      var newWeight = Number(pet_info['weight'])
       if(pet_info['happiness'] - happinessChange < 0){
         $('.warning').text("Cannot train, happiness is too low!");
         checkAndUpdatePetInfoInHtml();
       }
-      pet_info['happiness'] = parseInt(pet_info['happiness']) - happinessChange;
-      pet_info['weight'] = parseInt(pet_info['weight']) + 2;
+      pet_info['happiness'] -= happinessChange;
+      pet_info['weight'] = newWeight + 2;
       checkAndUpdatePetInfoInHtml();
     }
   
