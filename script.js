@@ -4,6 +4,9 @@
 // Add JQuery methods
 // Make it so that at certain happiness values, image changes
 // https://www.geeksforgeeks.org/javascript/javascript-set-an-image-source-dynamically-using-js/
+  
+// Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
+var pet_info = {name:"Scrimblo", weight:"50", happiness:"50"};
 
 $(function() { // Makes sure that your function is called once all the DOM elements of the page are ready to be used.
     
@@ -16,9 +19,6 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   $('.exercise-button').click(clickedExerciseButton);
   $('.train-button').click(clickedTrainButton);
 })
-  
-// Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
-var pet_info = {name:"Scrimblo", weight:"50", happiness:"50"};
 
 // Change values passed through to checkAndUpdatePetInfoInHtml based on button pressed
 function clickedTreatButton() {
@@ -41,8 +41,11 @@ function clickedTrainButton() {
 // uses checkWeightAndHappinessBeforeUpdating to check if values are safe, continues to update info if so
 function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange) {
   var change = checkWeightAndHappinessBeforeUpdating(action, happinessChange, weightChange);  
-  if(change)
+  if(change){
+    pet_info['happiness'] += happinessChange;
+    pet_info['weight'] += weightChange;
     updatePetInfoInHtml(happinessChange, weightChange);
+  }
 }
 
 // Checks if values are safe to use before acting, returns true if safe false otherwise
