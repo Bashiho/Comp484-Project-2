@@ -5,6 +5,7 @@
 // Add JQuery methods
 // Make it so that at certain happiness values, image changes
 // https://www.geeksforgeeks.org/javascript/javascript-set-an-image-source-dynamically-using-js/
+// Maybe update structue from if/else statements
 
 $(function() { // Makes sure that your function is called once all the DOM elements of the page are ready to be used.
     
@@ -43,10 +44,11 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       if(pet_info['weight'] - weightChange <= 0)
         $('.warning').text("Cannot play, weight is too low!");
       // Increase pet happiness
-      pet_info['happiness'] = newHappiness + 3;
-      // Decrease pet weight
-      pet_info['weight'] -= weightChange;
-      checkAndUpdatePetInfoInHtml();
+      else{
+        pet_info['happiness'] = newHappiness + 3;
+        // Decrease pet weight
+        pet_info['weight'] -= weightChange;
+        checkAndUpdatePetInfoInHtml();
     }
     
     function clickedExerciseButton() {
@@ -58,22 +60,24 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
         $('.warning').text("Cannot exercise, happiness and weight would be too low!");
         checkAndUpdatePetInfoInHtml();
       }
-      else {
-        // If happiness is too low, show warning
-        if(pet_info['happiness'] - happinessChange < 0)
+      // If happiness is too low, show warning
+      else if(pet_info['happiness'] - happinessChange < 0){
           $('.warning').text("Cannot exercise, happiness would be too low!");
           checkAndUpdatePetInfoInHtml();
-
+      }
       // If weight is too low, show warning
-        if(pet_info['weight'] - weightChange <= 0) 
+      else if(pet_info['weight'] - weightChange <= 0){
           $('.warning').text("Cannot exercise, weight would be too low!");
           checkAndUpdatePetInfoInHtml();
       }
-      // IF happiness and weight are safe, decrease both and update info
-      pet_info['happiness'] -= happinessChange;
-      pet_info['weight'] -= weightChange;
-      checkAndUpdatePetInfoInHtml();
-    }
+      else{
+        // IF happiness and weight are safe, decrease both and update info
+        pet_info['happiness'] -= happinessChange;
+        pet_info['weight'] -= weightChange;
+        checkAndUpdatePetInfoInHtml();
+      }
+        
+      }
 
     function clickedTrainButton() {
       const happinessChange = 5;
@@ -82,9 +86,11 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
         $('.warning').text("Cannot train, happiness is too low!");
         checkAndUpdatePetInfoInHtml();
       }
-      pet_info['happiness'] -= happinessChange;
-      pet_info['weight'] = newWeight + 2;
-      checkAndUpdatePetInfoInHtml();
+      else{
+        pet_info['happiness'] -= happinessChange;
+        pet_info['weight'] = newWeight + 2;
+        checkAndUpdatePetInfoInHtml();
+      }
     }
   
     function checkAndUpdatePetInfoInHtml() {
