@@ -3,6 +3,7 @@
 // Replace pet image
 // Add JQuery methods
 // Make it so that at certain happiness values, image changes
+// ADD ANOTHER PROPERTY WITH HAPPINESS AND WEIGHT
 // https://www.geeksforgeeks.org/javascript/javascript-set-an-image-source-dynamically-using-js/
   
 // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
@@ -11,7 +12,8 @@ var pet_info = {name:"Scrimblo", weight:"50", happiness:"50"};
 $(function() { // Makes sure that your function is called once all the DOM elements of the page are ready to be used.
     
   // Called function to update the name, happiness, and weight of our pet in our HTML
-  checkAndUpdatePetInfoInHtml();
+  // Skip checks to avoid passing through pointless attributes and doing pointless checks
+  updatePetInfoInHtml();
 
   // When each button is clicked, it will "call" function for that button (functions are below)
   $('.treat-button').click(clickedTreatButton);
