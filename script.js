@@ -22,61 +22,33 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   $('.exercise-button').click(clickedExerciseButton);
   $('.train-button').click(clickedTrainButton);
 
-  // Change image based on happiness
-  let img = document.getElementsByClassName("pet-image");
-  
-  if(pet_info['happiness'] <= 20)
-    img.src = "./images/rem_sad";
+  // Update image based on happiness
+  updateImage();
 
-  else if(pet_info['happiness'] >= 80)
-    img.src = "./images/rem_happy";
-
-  else
-    img.src = "./images/rem"
-
-  // Gray out buttons if they are unsafe
-  if((pet_info['weight'] - 2 <= 0) || (pet_info['discipline'] -4 < 0)){
-    $('.play-button').attr("disabled", "disabled");
-    $('.play-button').css("background-color", "light-gray");
-  }
-  else{
-    $('.play-button').attr("disabled", "enabled");
-    $('.play-button').css("background-color", "#1e2835");
-  }
-  if((pet_info['happiness'] - 3 < 0) || (pet_info['weight'] - 5 <= 0)){
-    $('.exercise-button').attr("disabled", "disabled");
-    $('.exercise-button').css("background-color", "light-gray");
-  }
-  else{
-    $('.exercise-button').attr("disabled", "enabled");
-    $('.exercise-button').css("background-color", "#1e2835");
-  }
-  if(pet_info['happiness'] - 5 < 0){
-    $('.train-button').attr("disabled", "disabled");
-    $('.train-button').css("background-color", "light-gray");
-  }
-  else{
-    $('.train-button').attr("disabled", "enabled");
-    $('.train-button').css("background-color", "#1e2835");
-  }
+  // Update buttons based on if they are safe or not
+  updateButtons();
 })
 
 // Change values passed through to checkAndUpdatePetInfoInHtml based on button pressed
 function clickedTreatButton() {
   checkAndUpdatePetInfoInHtml("treat", 5, 5, 0);
+  $("<p>Gave Treat, </p>").prependTo(".history");
 }
 
 function clickedPlayButton() {
   checkAndUpdatePetInfoInHtml("play", 3, -2, -4);
+  $("<p>Played, </p>").prependTo(".history");
 }
 
 
 function clickedExerciseButton() {
   checkAndUpdatePetInfoInHtml("exercise", -3, -5, 2);
+  $("<p>Exercised, </p>").prependTo(".history");
 } 
   
 function clickedTrainButton() {
   checkAndUpdatePetInfoInHtml("train", -5, 2, 5);
+  $("<p>Trained, </p>").prependTo(".history");
 }
 
 // uses checkWeightAndHappinessBeforeUpdating to check if values are safe, continues to update info if so
@@ -130,4 +102,43 @@ function updatePetInfoInHtml() {
   $('.weight').text(pet_info['weight']);
   $('.happiness').text(pet_info['happiness']);
   $('.discipline').text(pet_info['discipline']);
+}
+
+// Gray out and disable buttons if they are unsafe
+function updateButtons() {
+  if((pet_info['weight'] - 2 <= 0) || (pet_info['discipline'] -4 < 0)){
+    $('.play-button').attr("disabled", "disabled");
+    $('.play-button').css("background-color", "light-gray");
+  }
+  else{
+    $('.play-button').attr("disabled", "enabled");
+    $('.play-button').css("background-color", "#1e2835");
+  }
+  if((pet_info['happiness'] - 3 < 0) || (pet_info['weight'] - 5 <= 0)){
+    $('.exercise-button').attr("disabled", "disabled");
+    $('.exercise-button').css("background-color", "light-gray");
+  }
+  else{
+    $('.exercise-button').attr("disabled", "enabled");
+    $('.exercise-button').css("background-color", "#1e2835");
+  }
+  if(pet_info['happiness'] - 5 < 0){
+    $('.train-button').attr("disabled", "disabled");
+    $('.train-button').css("background-color", "light-gray");
+  }
+  else{
+    $('.train-button').attr("disabled", "enabled");
+    $('.train-button').css("background-color", "#1e2835");
+  }
+}
+// Change image based on happiness
+function updateImage() {
+  let img = document.getElementsByClassName("pet-image");
+  
+  if(pet_info['happiness'] <= 20)
+    img.src = "./images/rem_sad";
+  else if(pet_info['happiness'] >= 80)
+    img.src = "./images/rem_happy";
+  else
+    img.src = "./images/rem";
 }
