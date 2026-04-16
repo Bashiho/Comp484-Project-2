@@ -8,7 +8,7 @@
   
 // Add a variable "pet_info" equal to a object with the name (string), 
 // weight (number), happiness (number), and discipline (number) of your pet
-var pet_info = {name:"Scrimblo", weight:"50", happiness:"50", discipline:"50"};
+var pet_info = {name:"Rem", weight:"50", happiness:"50", discipline:"50"};
 
 $(function() { // Makes sure that your function is called once all the DOM elements of the page are ready to be used.
     
@@ -30,6 +30,7 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
 })
 
 // Change values passed through to checkAndUpdatePetInfoInHtml based on button pressed
+// Each uses .prepentTo('.history") which adds the string mentioning the action to the start of the history element in the html
 function clickedTreatButton() {
   checkAndUpdatePetInfoInHtml("treat", 5, 5, 0);
   $("<p>Gave Treat, </p>").prependTo(".history");
@@ -105,6 +106,7 @@ function updatePetInfoInHtml() {
 }
 
 // Gray out and disable buttons if they are unsafe
+// Uses .css() to adjust the css of the buttons, change color to show they are disabled
 function updateButtons() {
   if((pet_info['weight'] - 2 <= 0) || (pet_info['discipline'] -4 < 0)){
     $('.play-button').attr("disabled", "disabled");
