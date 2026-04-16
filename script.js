@@ -56,7 +56,6 @@ function clickedTrainButton() {
 function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange, discChange) {
   var change = checkWeightAndHappinessBeforeUpdating(action, happinessChange, weightChange, discChange);  
   if(change){
-    $('.warning').text("Cannot " + action + ", happiness and weight are too low!");
     pet_info['happiness'] += happinessChange;
     pet_info['weight'] += weightChange;
     pet_info['discipline'] += discChange;
@@ -66,31 +65,31 @@ function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange, disc
 
 // Checks if values are safe to use before acting, returns true if safe , returns false and prints warning otherwise
 function checkWeightAndHappinessBeforeUpdating(action, happinessChange, weightChange, discChange) {
-  if((pet_info['happiness'] += happinessChange < 0) && (pet_info['weight'] += weightChange <= 0) && (pet_info['discipline'] += discChange < 0)){
+  if((pet_info['happiness'] + happinessChange < 0) && (pet_info['weight'] + weightChange <= 0) && (pet_info['discipline'] + discChange < 0)){
     $('.warning').text("Cannot " + action + ", discipline, happiness and weight are too low!");
     return false;
   }
-  else if(pet_info['happiness'] += happinessChange < 0 && (pet_info['weight'] += weightChange <= 0)){
+  else if(pet_info['happiness'] + happinessChange < 0 && (pet_info['weight'] + weightChange <= 0)){
     $('.warning').text("Cannot " + action + ", happiness and weight are too low!");
     return false;
   }
-  else if(pet_info['weight'] += weightChange <= 0 && (pet_info['discipline'] += discChange < 0)) {
+  else if(pet_info['weight'] + weightChange <= 0 && (pet_info['discipline'] + discChange < 0)) {
     $('.warning').text("Cannot " + action + ", discipline and weight are too low!");
     return false;
   }
-  else if((pet_info['happiness'] += happinessChange < 0) && (pet_info['discipline'] += discChange < 0)){
+  else if((pet_info['happiness'] + happinessChange < 0) && (pet_info['discipline'] + discChange < 0)){
     $('.warning').text("Cannot " + action + ", discipline and happiness are too low!");
     return false;
   }
-  else if(pet_info['happiness'] += happinessChange < 0){
+  else if(pet_info['happiness'] + happinessChange < 0){
     $('.warning').text("Cannot " + action + ", happiness too low!");
     return false;
   }
-  else if(pet_info['discipline'] += discChange < 0){
+  else if(pet_info['discipline'] + discChange < 0){
     $('.warning').text("Cannot " + action + ", discipline is too low!");
     return false;
   }
-  else if(pet_info['weight'] += weightChange <= 0) {
+  else if(pet_info['weight'] + weightChange <= 0) {
     $('.warning').text("Cannot " + action + ", weight is too low!");
     return false;
   }
