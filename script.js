@@ -1,10 +1,5 @@
 // TBD
 // Add feedback from pet
-// Replace pet image 
-// (maybe done, requires tesintg) at certain happiness values, image changes
-// Add JQuery methods
-// Improve checks structure
-// https://www.geeksforgeeks.org/javascript/javascript-set-an-image-source-dynamically-using-js/
   
 // Add a variable "pet_info" equal to a object with the name (string), 
 // weight (number), happiness (number), and discipline (number) of your pet
@@ -21,10 +16,6 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   $('.play-button').click(clickedPlayButton);
   $('.exercise-button').click(clickedExerciseButton);
   $('.train-button').click(clickedTrainButton);
-
-
-  // Update buttons based on if they are safe or not
-  updateButtons();
 })
 
 // Change values passed through to checkAndUpdatePetInfoInHtml based on button pressed
@@ -54,6 +45,7 @@ function clickedTrainButton() {
 function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange, discChange) {
   var change = checkWeightAndHappinessBeforeUpdating(action, happinessChange, weightChange, discChange);  
   if(change){
+    $('.warning').text("Successfully completed: " + action);
     happiness = Number(pet_info['happiness'])
     weight = Number(pet_info['weight'])
     discipline = Number(pet_info['discipline'])
@@ -61,41 +53,29 @@ function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange, disc
     pet_info['weight'] = weight + weightChange;
     pet_info['discipline'] = discipline + discChange;
     updateImage();
+    updateButtons();
     updatePetInfoInHtml(happinessChange, weightChange);
   }
 }
 
 // Checks if values are safe to use before acting, returns true if safe , returns false and prints warning otherwise
 function checkWeightAndHappinessBeforeUpdating(action, happinessChange, weightChange, discChange) {
-  if((pet_info['happiness'] + happinessChange < 0) && (pet_info['weight'] + weightChange <= 0) && (pet_info['discipline'] + discChange < 0)){
-    $('.warning').text("Cannot " + action + ", discipline, happiness and weight are too low!");
+  let issues = ""
+  if(Number(pet_info['happiness']) + happinessChange < 0){
+    issues += "happiness ";
+  }
+  if(Number(pet_info['discipline']) + discChange < 0){
+    issues += "discipline ";
+  }
+  if(Number(pet_info['weight']) + weightChange <= 0){
+    issues += "weight ";
+  }
+
+  if (issues.length > 0){
+    $('.warning').text(`Cannot ${action} because the following values are in danger: ${issues}`);
     return false;
   }
-  else if(pet_info['happiness'] + happinessChange < 0 && (pet_info['weight'] + weightChange <= 0)){
-    $('.warning').text("Cannot " + action + ", happiness and weight are too low!");
-    return false;
-  }
-  else if(pet_info['weight'] + weightChange <= 0 && (pet_info['discipline'] + discChange < 0)) {
-    $('.warning').text("Cannot " + action + ", discipline and weight are too low!");
-    return false;
-  }
-  else if((pet_info['happiness'] + happinessChange < 0) && (pet_info['discipline'] + discChange < 0)){
-    $('.warning').text("Cannot " + action + ", discipline and happiness are too low!");
-    return false;
-  }
-  else if(pet_info['happiness'] + happinessChange < 0){
-    $('.warning').text("Cannot " + action + ", happiness too low!");
-    return false;
-  }
-  else if(pet_info['discipline'] + discChange < 0){
-    $('.warning').text("Cannot " + action + ", discipline is too low!");
-    return false;
-  }
-  else if(pet_info['weight'] + weightChange <= 0) {
-    $('.warning').text("Cannot " + action + ", weight is too low!");
-    return false;
-  }
-  else return true;
+  return true;
 }
 
 // Updates your HTML with the current values in your pet_info object
@@ -109,31 +89,32 @@ function updatePetInfoInHtml() {
 // Gray out and disable buttons if they are unsafe
 // Uses .css() to adjust the css of the buttons, change color to show they are disabled
 function updateButtons() {
-  if((pet_info['weight'] - 2 <= 0) || (pet_info['discipline'] -4 < 0)){
+  if((pet_info['weight'] - 2 <= 0) || (pet_info['discipline'] - 4 < 0)){
     $('.play-button').attr("disabled", "disabled");
-    $('.play-button').css("background-color", "light-gray");
+    $('.play-button').css("background-color", "#D3D3D3");
   }
   else{
-    $('.play-button').attr("disabled", "enabled");
+    $('.play-button').removeAttr("disabled");
     $('.play-button').css("background-color", "#1e2835");
   }
   if((pet_info['happiness'] - 3 < 0) || (pet_info['weight'] - 5 <= 0)){
     $('.exercise-button').attr("disabled", "disabled");
-    $('.exercise-button').css("background-color", "light-gray");
+    $('.exercise-button').css("background-color", "#D3D3D3");
   }
   else{
-    $('.exercise-button').attr("disabled", "enabled");
+    $('.exercise-button').removeAttr("disabled");
     $('.exercise-button').css("background-color", "#1e2835");
   }
   if(pet_info['happiness'] - 5 < 0){
     $('.train-button').attr("disabled", "disabled");
-    $('.train-button').css("background-color", "light-gray");
+    $('.train-button').css("background-color", "#D3D3D3");
   }
   else{
-    $('.train-button').attr("disabled", "enabled");
+    $('.train-button').removeAttr("disabled");
     $('.train-button').css("background-color", "#1e2835");
   }
 }
+
 // Change image based on happiness
 function updateImage() {
   let img = document.getElementById("pet-image");
