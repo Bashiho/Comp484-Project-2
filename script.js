@@ -22,8 +22,6 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   $('.exercise-button').click(clickedExerciseButton);
   $('.train-button').click(clickedTrainButton);
 
-  // Update image based on happiness
-  updateImage();
 
   // Update buttons based on if they are safe or not
   updateButtons();
@@ -34,31 +32,38 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
 function clickedTreatButton() {
   checkAndUpdatePetInfoInHtml("treat", 5, 5, 0);
   $("<p>Gave Treat, </p>").prependTo(".history");
+  updateImage();
 }
 
 function clickedPlayButton() {
   checkAndUpdatePetInfoInHtml("play", 3, -2, -4);
   $("<p>Played, </p>").prependTo(".history");
+  updateImage();
 }
 
 
 function clickedExerciseButton() {
   checkAndUpdatePetInfoInHtml("exercise", -3, -5, 2);
   $("<p>Exercised, </p>").prependTo(".history");
+  updateImage();
 } 
   
 function clickedTrainButton() {
   checkAndUpdatePetInfoInHtml("train", -5, 2, 5);
   $("<p>Trained, </p>").prependTo(".history");
+  updateImage();
 }
 
 // uses checkWeightAndHappinessBeforeUpdating to check if values are safe, continues to update info if so
 function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange, discChange) {
   var change = checkWeightAndHappinessBeforeUpdating(action, happinessChange, weightChange, discChange);  
   if(change){
-    pet_info['happiness'] += happinessChange;
-    pet_info['weight'] += weightChange;
-    pet_info['discipline'] += discChange;
+    happiness = Number(pet_info['happiness'])
+    weight = Number(pet_info['weight'])
+    discipline = Number(pet_info['discipline'])
+    pet_info['happiness'] = happiness + happinessChange;
+    pet_info['weight'] = weight + weightChange;
+    pet_info['discipline'] = discipline + discChange;
     updatePetInfoInHtml(happinessChange, weightChange);
   }
 }
@@ -134,12 +139,12 @@ function updateButtons() {
 }
 // Change image based on happiness
 function updateImage() {
-  let img = document.getElementsByClassName("pet-image");
+  let img = document.getElementById("pet-image");
   
-  if(pet_info['happiness'] <= 20)
-    img.src = "./images/rem_sad";
-  else if(pet_info['happiness'] >= 80)
-    img.src = "./images/rem_happy";
+  if(Number(pet_info['happiness']) <= 20)
+    img.src = "./images/rem-sad.png";
+  else if(Number(pet_info['happiness']) >= 80)
+    img.src = "./images/rem-happy.png";
   else
-    img.src = "./images/rem";
+    img.src = "./images/rem.png";
 }
