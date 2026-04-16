@@ -32,26 +32,22 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
 function clickedTreatButton() {
   checkAndUpdatePetInfoInHtml("treat", 5, 5, 0);
   $("<p>Gave Treat, </p>").prependTo(".history");
-  updateImage();
 }
 
 function clickedPlayButton() {
   checkAndUpdatePetInfoInHtml("play", 3, -2, -4);
   $("<p>Played, </p>").prependTo(".history");
-  updateImage();
 }
 
 
 function clickedExerciseButton() {
   checkAndUpdatePetInfoInHtml("exercise", -3, -5, 2);
   $("<p>Exercised, </p>").prependTo(".history");
-  updateImage();
 } 
   
 function clickedTrainButton() {
   checkAndUpdatePetInfoInHtml("train", -5, 2, 5);
   $("<p>Trained, </p>").prependTo(".history");
-  updateImage();
 }
 
 // uses checkWeightAndHappinessBeforeUpdating to check if values are safe, continues to update info if so
@@ -64,6 +60,7 @@ function checkAndUpdatePetInfoInHtml(action, happinessChange, weightChange, disc
     pet_info['happiness'] = happiness + happinessChange;
     pet_info['weight'] = weight + weightChange;
     pet_info['discipline'] = discipline + discChange;
+    updateImage();
     updatePetInfoInHtml(happinessChange, weightChange);
   }
 }
