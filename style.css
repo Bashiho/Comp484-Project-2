@@ -72,11 +72,24 @@
     margin-right: 10px;
     text-align: center;
     display: inline-block;
-    float: left;
+    /* float: left; */
     font-size:15px;
     background-color: #1e2835;
     border-color: #404853;
     cursor:pointer;
     background-image: linear-gradient(to bottom,rgba(246,246,246,.1)0%,rgba(30,40,53,0)66%);
     color: #fafafa;
+  }
+
+  .history{
+    position: relative;
+    padding: 2px;
+    width: 400px;
+    top: 10px;
+    left: auto;
+    background: white;
+    border-radius: 3px;
+    border: 2px solid black;
+    max-height: 200px;
+    overflow-y: auto;
   }

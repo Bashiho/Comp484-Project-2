@@ -11,6 +11,7 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   // Skip checks to avoid passing through pointless attributes and doing pointless checks
   updatePetInfoInHtml();
 
+  $('.warning').text("No actions yet.");
   // When each button is clicked, it will "call" function for that button (functions are below)
   $('.treat-button').click(clickedTreatButton);
   $('.play-button').click(clickedPlayButton);
@@ -22,23 +23,22 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
 // Each uses .prepentTo('.history") which adds the string mentioning the action to the start of the history element in the html
 function clickedTreatButton() {
   checkAndUpdatePetInfoInHtml("treat", 5, 5, 0);
-  $("<p>Gave Treat, </p>").prependTo(".history");
+  $("<p>Gave Treat, </p>").prependTo(".history-list");
 }
 
 function clickedPlayButton() {
   checkAndUpdatePetInfoInHtml("play", 3, -2, -4);
-  $("<p>Played, </p>").prependTo(".history");
+  $("<p>Played, </p>").prependTo(".history-list");
 }
-
 
 function clickedExerciseButton() {
   checkAndUpdatePetInfoInHtml("exercise", -3, -5, 2);
-  $("<p>Exercised, </p>").prependTo(".history");
+  $("<p>Exercised, </p>").prependTo(".history-list");
 } 
   
 function clickedTrainButton() {
   checkAndUpdatePetInfoInHtml("train", -5, 2, 5);
-  $("<p>Trained, </p>").prependTo(".history");
+  $("<p>Trained, </p>").prependTo(".history-list");
 }
 
 // uses checkWeightAndHappinessBeforeUpdating to check if values are safe, continues to update info if so
